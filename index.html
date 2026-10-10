@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Excel Formatter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div>
+      <h1>Quiz Excel Formatter</h1>
+      <p>Create standard Excel files for Live Quiz, Tic Tac Toe and LMS Games.</p>
+    </div>
+    <div class="badge">QUIZ FORMATTER</div>
+  </header>
+
+  <main>
+    <section id="formatterPage" class="formatter-page">
+      <aside class="controls">
+        <div class="panel">
+          <h2>Configuration</h2>
+
+          <div class="config-list">
+            <button class="config-card active" data-config="live">
+              <span class="config-icon">📝</span>
+              <span><strong>Live Session Quiz</strong><small>LIVEQZ-...</small></span>
+            </button>
+
+            <button class="config-card" data-config="ttt">
+              <span class="config-icon">⭕</span>
+              <span><strong>Tic Tac Toe</strong><small>TTTQZ-...</small></span>
+            </button>
+
+            <button class="config-card" data-config="lms">
+              <span class="config-icon">🎮</span>
+              <span><strong>LMS Game</strong><small>GAMENAME-...</small></span>
+            </button>
+          </div>
+
+          <div id="lmsGameBox" class="lms-game-box hidden">
+            <label for="gameSelect">LMS Game</label>
+            <select id="gameSelect">
+              <option value="">-- Select Game --</option>
+              <option value="TICTACTOE">Tic Tac Toe</option>
+              <option value="EXPLORER">Explorer</option>
+              <option value="ROBOSTRIKE-BOT-BUZZER">Robo Strike/Bot-Buzzer</option>
+              <option value="MINDTRAILADVENTURE">Mind trail Adventure</option>
+              <option value="BRAINQUESTBINGO">Brain Quest Bingo</option>
+              <option value="FROGLEAPADVENTURE">Frog Leap Adventure</option>
+              <option value="TANK">Tank</option>
+              <option value="DOORTOWISDOM">Door to Wisdom</option>
+              <option value="LITTLEHUNTER">Little Hunter</option>
+              <option value="MARINEMAYHEM">Marine Mayhem</option>
+              <option value="QUORIQUEST">Quori Quest</option>
+              <option value="MATHSCOTCH">Math Scotch</option>
+              <option value="EYESOFTHEWILD">Eyes Of The Wild</option>
+              <option value="MOONBATTLE-DOORTOWISDOM">Moonbattle - Door to Wisdom</option>
+              <option value="SMARTSTEPS">Smart Steps</option>
+              <option value="TURNWISE">Turnwise</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Session Details</h2>
+
+          <label for="sessionId">Session ID <span class="required">*</span></label>
+          <input id="sessionId" type="text" placeholder="Enter Session ID">
+
+          <label for="sessionCode">Session Code <span class="required">*</span></label>
+          <input id="sessionCode" type="text" placeholder="RO-TT-T2-S14-V1">
+
+          <div class="filename">
+            <span>Excel file</span>
+            <strong id="fileNamePreview">LIVEQZ-RO-TT-T2-S14-V1.xlsx</strong>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Question Images <span class="optional">(Optional)</span></h2>
+          <p class="help">
+            Open your folder and select PNG images such as
+            <b>Q1.png</b>, <b>Q2.png</b>, <b>Q5.png</b>.
+          </p>
+          <input id="imageFiles" type="file" multiple accept=".png,image/png">
+          <div id="imageStatus" class="image-status">No PNG images selected.</div>
+        </div>
+
+        <div class="panel actions-panel">
+          <button id="formatBtn" class="primary big-btn">Format Questions</button>
+          <button id="clearBtn" class="secondary big-btn">Clear</button>
+        </div>
+
+        <div id="status"></div>
+      </aside>
+
+      <section class="question-area">
+        <div class="paste-header">
+          <div>
+            <h2>Paste MCQ Questions</h2>
+            <p>Markdown is optional. Q1/Q2, A/B/C/D and different answer formats are detected automatically.</p>
+          </div>
+          <button id="exampleBtn" class="secondary">Load Example</button>
+        </div>
+
+        <textarea id="questionsInput" spellcheck="false"
+          placeholder="Paste your MCQs here...
+
+Example:
+
+Q1. Which pin is the NeoPixel matrix joined to on the ELB?
+
+A. GP3
+B. GP26
+C. GP2
+D. GP0
+
+Correct Answer: C"></textarea>
+
+        <div class="paste-hint">
+          <span>✓ Plain text supported</span>
+          <span>✓ ### and ** optional</span>
+          <span>✓ Answer / Correct Answer / ✅ supported</span>
+          <span>✓ Q1.png → Question 1 image</span>
+        </div>
+      </section>
+    </section>
+
+    <section id="previewPage" class="preview-page hidden">
+      <div class="preview-toolbar">
+        <div>
+          <h2>Excel Preview</h2>
+          <p id="templateDescription"></p>
+        </div>
+        <div class="preview-actions">
+          <span id="successMessage" class="success-message"></span>
+          <button id="backBtn" class="secondary">Back to Formatter</button>
+          <button id="downloadBtn" class="download">Download Excel (.xlsx)</button>
+        </div>
+      </div>
+
+      <div class="preview-table-wrap">
+        <table id="excelTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>Quiz Excel Formatter • Uses the supplied standard Excel templates</footer>
+</div>
+
+<!-- ExcelJS preserves the supplied workbook formatting while adding question data. -->
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
